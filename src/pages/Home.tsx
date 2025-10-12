@@ -29,10 +29,12 @@ const Home = () => {
                 Start Learning
               </Button>
             </Link>
-            <Button size="lg" variant="outline" className="gap-2">
-              <MessageSquare className="h-5 w-5" />
-              Ask Chatbot
-            </Button>
+            <Link to="/chatbot">
+              <Button size="lg" variant="outline" className="gap-2">
+                <MessageSquare className="h-5 w-5" />
+                Ask Chatbot
+              </Button>
+            </Link>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-12 w-full">

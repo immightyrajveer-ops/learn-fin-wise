@@ -7,6 +7,7 @@ import Home from "./pages/Home";
 import Learn from "./pages/Learn";
 import Module from "./pages/Module";
 import Auth from "./pages/Auth";
+import Chatbot from "./pages/Chatbot";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -21,6 +22,7 @@ const App = () => (
           <Route path="/" element={<Home />} />
           <Route path="/learn" element={<Learn />} />
           <Route path="/module/:moduleId" element={<Module />} />
+          <Route path="/chatbot" element={<Chatbot />} />
           <Route path="/auth" element={<Auth />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />

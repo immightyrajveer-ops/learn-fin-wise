@@ -40,6 +40,9 @@ const Navbar = () => {
           <Link to="/learn">
             <Button variant="ghost">Learn</Button>
           </Link>
+          <Link to="/chatbot">
+            <Button variant="ghost">Chatbot</Button>
+          </Link>
           
           {user ? (
             <Button onClick={handleLogout} variant="outline" size="sm">
