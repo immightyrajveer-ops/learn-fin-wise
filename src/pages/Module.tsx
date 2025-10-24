@@ -69,11 +69,12 @@ const Module = () => {
                 <CardContent>
                   <div className="aspect-video w-full">
                     <iframe
-                      src={video.youtube_url}
+                      src={`${video.youtube_url}?rel=0&modestbranding=1`}
                       title={video.title}
-                      className="w-full h-full rounded-lg"
-                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      className="w-full h-full rounded-lg border-0"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                       allowFullScreen
+                      loading="lazy"
                     />
                   </div>
                 </CardContent>
