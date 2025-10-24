@@ -8,6 +8,7 @@ import Learn from "./pages/Learn";
 import Module from "./pages/Module";
 import Auth from "./pages/Auth";
 import Chatbot from "./pages/Chatbot";
+import FinanceNews from "./pages/FinanceNews";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -23,6 +24,7 @@ const App = () => (
           <Route path="/learn" element={<Learn />} />
           <Route path="/module/:moduleId" element={<Module />} />
           <Route path="/chatbot" element={<Chatbot />} />
+          <Route path="/news" element={<FinanceNews />} />
           <Route path="/auth" element={<Auth />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
