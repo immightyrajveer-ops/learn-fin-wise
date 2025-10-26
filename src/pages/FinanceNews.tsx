@@ -6,6 +6,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ExternalLink, Calendar, Newspaper } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { supabase } from "@/integrations/supabase/client";
 
 interface Article {
   title: string;
@@ -42,22 +43,15 @@ const FinanceNews = () => {
     const fetchNews = async () => {
       setLoading(true);
       try {
-        const response = await fetch(
-          `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/fetch-finance-news`,
-          {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ category: selectedCategory }),
-          }
-        );
+        const { data: payload, error } = await supabase.functions.invoke('fetch-finance-news', {
+          body: { category: selectedCategory },
+        });
 
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
+        if (error) {
+          throw new Error(error.message);
         }
 
-        const data: NewsResponse = await response.json();
+        const data: NewsResponse = payload as NewsResponse;
         
         if (data.status === "ok") {
           setArticles(data.articles);

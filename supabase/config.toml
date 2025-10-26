@@ -1,1 +1,4 @@
 project_id = "kxewddwbrfdmlyfjylto"
+
+[functions.fetch-finance-news]
+verify_jwt = false
