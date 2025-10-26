@@ -38,25 +38,19 @@ const FinanceNews = () => {
   const [selectedCategory, setSelectedCategory] = useState<Category>("stocks");
   const { toast } = useToast();
 
-  const apiKey = import.meta.env.VITE_NEWS_API_KEY;
-
   useEffect(() => {
     const fetchNews = async () => {
-      if (!apiKey) {
-        toast({
-          title: "API Key Missing",
-          description: "⚠️ Unable to load news. Please add your NewsAPI key in .env file.",
-          variant: "destructive",
-        });
-        setLoading(false);
-        return;
-      }
-
       setLoading(true);
       try {
-        const query = categoryQueries[selectedCategory];
         const response = await fetch(
-          `https://newsapi.org/v2/everything?q=${encodeURIComponent(query)}&sortBy=publishedAt&language=en&pageSize=12&apiKey=${apiKey}`
+          `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/fetch-finance-news`,
+          {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ category: selectedCategory }),
+          }
         );
 
         if (!response.ok) {
@@ -84,7 +78,7 @@ const FinanceNews = () => {
     };
 
     fetchNews();
-  }, [selectedCategory, apiKey, toast]);
+  }, [selectedCategory, toast]);
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
@@ -113,16 +107,7 @@ const FinanceNews = () => {
           </TabsList>
         </Tabs>
 
-        {!apiKey ? (
-          <Card className="border-destructive">
-            <CardHeader>
-              <CardTitle className="text-destructive">API Key Required</CardTitle>
-              <CardDescription>
-                ⚠️ Unable to load news. Please add your NewsAPI key in the .env file as VITE_NEWS_API_KEY.
-              </CardDescription>
-            </CardHeader>
-          </Card>
-        ) : loading ? (
+        {loading ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {[...Array(6)].map((_, i) => (
               <Card key={i}>
